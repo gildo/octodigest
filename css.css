@@ -42,3 +42,26 @@ body {
   font-weight: normal;
   src: local("Merriweather"), url("http://themes.googleusercontent.com/font?kit=RFda8w1V0eDZheqfcyQ4EHhCUOGz7vYGh680lGh-uXM") format("woff"); }
 
+fieldset.search {
+	border: none;
+	width: 4px;
+	margin: 0 auto;
+	background: #424242;
+}
+.search input {
+	border: none;
+}
+
+.search input.box {
+	color: #fff;
+	font-size: 1.8em;
+	width: 300px;
+	height: 30px;
+	padding: 20px 5px 0;
+	background: #616161;
+	margin-right: 5px;
+}
+.search input.box:focus {
+	background: #616161 no-repeat left -38px;
+	outline: none;
+}

@@ -9,18 +9,12 @@
     <div id="main"> 
       <div id="title"><h1>it's a git... addicted!</h1></div>
       <div id="text">Online git summary</div><br>
-      <form accept-charset="UTF-8" >
-        <div style="margin:0;padding:0;display:inline">
-          <div class="text_field">
-            <label for="session_who">user / repo</label><br>
-            <input id="session_who" name="session[who]" size="5" type="text" /> /
-            <input id="session_password" name="session[password]" size="5" type="text" />
-          </div>
-          <div class="form_bottom">
-            <input data-disable-with="Please wait..." id="session_submit" name="commit" type="submit" value="Sign in" />
-          </div>
-        </form>
-      </div>
+      <form method="get" id="searchform" action="http://www.sohtanaka.com/">
+        <fieldset class="search">
+          <input type="text" class="box"/>
+        </fieldset>
+      </form>
     </div>
-  </body>
+  </div>
+</body>
 </html>
