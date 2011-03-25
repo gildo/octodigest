@@ -44,9 +44,10 @@ body {
 
 fieldset.search {
 	border: none;
-	width: 14px;
+	width: 602px;
 	margin: 0 auto;
 	background: #424242;
+  display:inline
 }
 .search input {
 	border: none;
