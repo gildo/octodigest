@@ -1,0 +1,30 @@
+  <table align="center">
+    <thead>
+      <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Contributions</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <% explode(ghet("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/contributors")) %>
+      <% contributors.each do |e| %>
+
+        <tr>
+          <td>
+            <a href="/users/<%= e["login"]%>/">
+              <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%= e["gravatar_id"] %>" width="40" height="40" />
+            </a>
+          </td>
+
+          <td>
+
+            <%= e["name"] %> <a href="/users/<%= e["login"] %>/">(<%= e["login"]%>)</a>
+
+          </td>
+          <td><a href="https://github.com/<%="#{params[:user]}/#{params[:repo]}/commits/master?author=#{e["login"]}"%>"><%= e["contributions"] %></a></td>
+
+        </tr>
+      <% end %>
