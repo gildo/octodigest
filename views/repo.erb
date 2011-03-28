@@ -1,7 +1,8 @@
 <% explode(ghet("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/contributors")) %>
 <hr>
 <div id="text"> <a href="http://github.com/<%="#{params[:user]}/#{params[:repo]}"%>"><%="#{params[:user]}/#{params[:repo]}"%> </a> </div>
-<div id="title"> <h1> Commits: <% count = 0; contributors.each {|u| count += u["contributions"]}%> <%=count%> / Commiters: <%= contributors.length %></h1></div>
+<div id="title"> <h1> Commits: <% count = 0; contributors.each {|u| count += u["contributions"]}%> <%=count%> / 
+Committers: <%= contributors.length %></h1></div>
 
 <table align="center">
     <thead>
