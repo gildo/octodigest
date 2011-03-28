@@ -9,7 +9,7 @@ get "/" do
 end
 
 post "/" do
-  redirect ("#{params[:user]} LOl/LOL #{params[:repo]}")
+  redirect ("#{params[:user]}/#{params[:repo]}")
 end
 
 get "/:user/:repo" do
