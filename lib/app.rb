@@ -2,7 +2,11 @@ require 'sinatra'
 require 'erb'
 
 set :views,  'views'
-set :public, 'public'
+enable :static
+
+helpers do
+  require './lib/helpers'
+end
 
 get "/" do
   erb :index
@@ -13,5 +17,8 @@ post "/" do
 end
 
 get "/:user/:repo" do
-  params[:user] + " " + params[:repo]
+  user = params[:user]
+  repo = params[:repo]
+  erb :repo
+  #ghet "http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/contributors"
 end              
