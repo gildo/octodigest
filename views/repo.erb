@@ -20,14 +20,14 @@ Committers: <%= contributors.length %></h1></div>
 
         <tr>
           <td>
-            <a href="/users/<%= e["login"]%>/">
+            <a href="http://github.com/<%= e["login"]%>/">
               <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%= e["gravatar_id"] %>" width="40" height="40" />
             </a>
           </td>
 
           <td>
 
-            <%= e["name"] %> <a href="/users/<%= e["login"] %>/">(<%= e["login"]%>)</a>
+            <%= e["name"] %> <a href="http://github.com/<%= e["login"] %>/">(<%= e["login"]%>)</a>
 
           </td>
           <td><a href="https://github.com/<%="#{params[:user]}/#{params[:repo]}/commits/master?author=#{e["login"]}"%>"><%= e["contributions"] %></a></td>
