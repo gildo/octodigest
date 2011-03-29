@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'erb'
+require 'json'
 
 set :views,  'views'
 enable :static
@@ -19,6 +20,10 @@ end
 get "/:user/:repo" do
   user = params[:user]
   repo = params[:repo]
-  erb :repo
-  #ghet "http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/contributors"
-end              
+  no = ghet("http://github.com/api/v2/json/repos/show/#{user}/#{repo}/contributors")
+  if no.has_key? "error"
+    erb :nf
+  else  
+    erb :repo
+  end
+end

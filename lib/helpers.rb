@@ -9,6 +9,7 @@ def ghet u
 
   response = http.request(request)
   body = JSON.parse(response.body)
+
 end
 
 def explode hash
