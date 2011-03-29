@@ -14,14 +14,16 @@ get "/" do
 end
 
 post "/" do
-  redirect ("#{params[:user]}/#{params[:repo]}")
+  redirect ("#{h params[:user]}/#{h params[:repo]}")
 end
 
 get "/:user/:repo" do
-  no = ghet("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/contributors")
-  if no.has_key? "error"
+  @data = ghet("http://github.com/api/v2/json/repos/show/#{h params[:user]}/#{h params[:repo]}/contributors")
+  if @data.has_key? "error"
+    title = "Not Found..."
     erb :nf
-  else  
+  else
+    title = "#{h params[:user]}/#{h params[:repo]}"
     erb :repo
   end
 end

@@ -17,3 +17,8 @@ def explode hash
     self.class.send(:define_method, k, proc{v})
   end
 end
+
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end
