@@ -18,12 +18,14 @@ post "/" do
 end
 
 get "/:user/:repo" do
-  user = params[:user]
-  repo = params[:repo]
   no = ghet("http://github.com/api/v2/json/repos/show/#{user}/#{repo}/contributors")
   if no.has_key? "error"
     erb :nf
   else  
     erb :repo
   end
+end
+
+not_found do
+  erb :nf
 end
