@@ -20,10 +20,10 @@ end
 get "/:user/:repo" do
   @data = ghet("http://github.com/api/v2/json/repos/show/#{h params[:user]}/#{h params[:repo]}/contributors")
   if @data.has_key? "error"
-    title = "Not Found..."
+    @title = "Not Found..."
     erb :nf
   else
-    title = "#{h params[:user]}/#{h params[:repo]}"
+    @title = "#{h params[:user]}/#{h params[:repo]}"
     erb :repo
   end
 end
