@@ -28,6 +28,9 @@ get "/:user/:repo" do
   end
 end
 
+get "/:user/:repo/:tag" do
+  tagger
+end
 not_found do
   erb :nf
 end
