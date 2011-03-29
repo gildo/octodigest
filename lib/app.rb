@@ -18,7 +18,7 @@ post "/" do
 end
 
 get "/:user/:repo" do
-  no = ghet("http://github.com/api/v2/json/repos/show/#{user}/#{repo}/contributors")
+  no = ghet("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/contributors")
   if no.has_key? "error"
     erb :nf
   else  
