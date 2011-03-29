@@ -71,3 +71,10 @@ fieldset.search {
 	background: #616161 url(search_bg.gif) no-repeat left -38px;
 	outline: none;
 }
+
+#footer {
+	padding:5px;
+	color:#D2B97E;
+	font-size:14px;
+	text-align:center;
+}
