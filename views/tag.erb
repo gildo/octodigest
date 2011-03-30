@@ -30,7 +30,7 @@
             <%=h u %> <a href="http://github.com/<%=h u %>/">(<%=h d["user"]["name"]%>)</a>
 
           </td>
-          <td><a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/commits/master?author=#{h c.length}"%>"><%=h c.length %></a></td>
+          <td><a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/commits/master?author=#{h u}"%>"><%=h c.length %></a></td>
 
         </tr>
       <% end %>
