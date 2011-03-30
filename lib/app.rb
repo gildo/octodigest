@@ -1,26 +1,23 @@
-require 'sinatra'
 require 'padrino-core/application/rendering'
-require 'render'
 require 'json'
 
 class Octodigest < Sinatra::Application
   register Padrino::Rendering
 
-  set :views,  'views'
   enable :static
- 
-  after { settings.views = 'views' }
+  views = './views'
+  templates[:layout] = File.read(File.join(settings.views, 'layout.erb'))
 
   helpers do
     require './lib/helpers'
   end
 
   get "/" do
-    render index
+    render :index
   end
 
   post "/" do
-    redirect ("#{h params[:user]}/#{h params[:repo]}")
+    redirect("#{h params[:user]}/#{h params[:repo]}")
   end
 
   get "/:user/:repo" do
