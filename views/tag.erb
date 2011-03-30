@@ -21,13 +21,13 @@
         <tr>
           <td>
             <a href="http://github.com/<%=h u %>/">
-              <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%= d["user"]["gravatar_id"]%> " width="40" height="40" />
+              <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%= d["user"]["gravatar_id"] if not d.include?("error")%> " width="40" height="40" />
             </a>
           </td>
 
           <td>
 
-            <%=h u %> <a href="http://github.com/<%=h u %>/">(<%=h d["user"]["name"]%>)</a>
+            <%=h u %> <a href="http://github.com/<%=h u %>/">(<%=h d["user"]["name"] if not d.include?("error")%>)</a>
 
           </td>
           <td><a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/commits/master?author=#{h u}"%>"><%=h c.length %></a></td>
