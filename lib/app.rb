@@ -30,6 +30,13 @@ end
 
 get "/:user/:repo/:tag" do
   tagger
+  if @commits.include? "error"
+    @title = "Not found..."
+    erb :nf
+  else
+    @title = "#{h params[:user]}/#{h params[:repo]} #{h params[:tag]}"
+    erb :tag
+  end
 end
 not_found do
   erb :nf
