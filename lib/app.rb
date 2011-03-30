@@ -1,19 +1,22 @@
 require 'sinatra'
 require 'padrino-core/application/rendering'
-require 'erb'
+require 'render'
 require 'json'
 
 class Octodigest < Sinatra::Application
+  register Padrino::Rendering
+
   set :views,  'views'
   enable :static
-  register Padrino::Rendering
+ 
+  after { settings.views = 'views' }
 
   helpers do
     require './lib/helpers'
   end
 
   get "/" do
-    erb :index
+    render index
   end
 
   post "/" do
@@ -24,10 +27,10 @@ class Octodigest < Sinatra::Application
     @data = ghet("http://github.com/api/v2/json/repos/show/#{h params[:user]}/#{h params[:repo]}/contributors")
     if @data.has_key? "error"
       @title = "Not Found..."
-      erb :nf
+      render :nf
     else
       @title = "#{h params[:user]}/#{h params[:repo]}"
-      erb :repo
+      render :repo
     end
   end
 
@@ -35,15 +38,15 @@ class Octodigest < Sinatra::Application
     tagger
     if @tcommits.include? "error"
       @title = "Not found..."
-      erb :nf
+      render :nf
     else
       @title = "#{h params[:user]}/#{h params[:repo]} #{h params[:tag]}"
-      erb :tag
+      render :tag
     end
   end
 
   not_found do
-    erb :nf
+    render :nf
   end
 
 end
