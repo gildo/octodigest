@@ -25,13 +25,13 @@ end
 
 def tagger
   tags    = ghet ("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags")
-  @commits = ghet ("http://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repo]}/#{params[:tag]}")
+  @tcommits = ghet ("http://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repo]}/#{params[:tag]}")
 
-  if @commits.include?"error"
+  if @tcommits.include?"error"
     @title = "Not found..."
     erb :nf
   else
-    @tmitts = @commits['commits'].map do |x|
+    @tmitts = @tcommits['commits'].map do |x|
       [x['committer']['login'], x['id']]
     end.group_by {|x|x[0]}.each do |k,v|
       v.flatten!.select! {|x| x != k}

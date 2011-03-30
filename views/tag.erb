@@ -1,6 +1,7 @@
+<% tagger %>
 <hr>
 <div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}/tree/#{params[:tag]}"%>"><%="#{h params[:user]}/#{h params[:repo]} #{params[:tag]}"%> </a> </div>
-<div id="title"> <h1> Commits: <%= @commits["commits"].length %> / Committers: <%= @tmitts.length %></h1></div>
+<div id="title"> <h1> Commits: <%= @tcommits["commits"].length %> / Committers: <%= @tmitts.length %></h1></div>
 
 <table align="center">
     <thead>

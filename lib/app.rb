@@ -30,7 +30,7 @@ end
 
 get "/:user/:repo/:tag" do
   tagger
-  if @commits.include? "error"
+  if @tcommits.include? "error"
     @title = "Not found..."
     erb :nf
   else
