@@ -1,0 +1,35 @@
+<hr>
+<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}/tree/#{params[:tag]}"%>"><%="#{h params[:user]}/#{h params[:repo]} #{params[:tag]}"%> </a> </div>
+<div id="title"> <h1> Commits: <%= @commits["commits"].length %> / Committers: <%= @tmitts.length %></h1></div>
+
+<table align="center">
+    <thead>
+      <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Contributions</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+
+      <% @tmitts.sort_by { |k,v| v.length }.reverse_each do |u,c| %>
+      <% d = ghet "http://github.com/api/v2/json/user/show/#{u}" %>
+
+        <tr>
+          <td>
+            <a href="http://github.com/<%=h u %>/">
+              <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%= d["user"]["gravatar_id"]%> " width="40" height="40" />
+            </a>
+          </td>
+
+          <td>
+
+            <%=h u %> <a href="http://github.com/<%=h u %>/">(<%=h d["user"]["name"]%>)</a>
+
+          </td>
+          <td><a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/commits/master?author=#{h c.length}"%>"><%=h c.length %></a></td>
+
+        </tr>
+      <% end %>
