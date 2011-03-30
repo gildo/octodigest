@@ -1,6 +1,22 @@
 <% tagger %>
+<% tags = ghet ("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags") %>
 <hr>
-<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}/tree/#{params[:tag]}"%>"><%="#{h params[:user]}/#{h params[:repo]} #{params[:tag]}"%> </a> </div>
+
+<ul id="nav">
+  <li><a href="#">tags</a>
+  <ul>
+    <% tags["tags"].sort.reverse_each do |k,v| %>
+      <li><a href=<%="/#{params[:user]}/#{params[:repo]}/#{k}"%>><%="#{k}"%></a></li>
+  <% end %>
+  </ul>
+
+
+  <div class="clear"></div>
+</ul>
+<br><br>
+
+<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> <br>
+    <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}/tree/#{params[:tag]}"%>">(<%="#{params[:tag]}"%>) </a> </div>
 <div id="title"> <h1> Commits: <%= @tcommits["commits"].length %> / Committers: <%= @tmitts.length %></h1></div>
 
 <table align="center">
