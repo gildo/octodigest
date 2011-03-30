@@ -1,43 +1,49 @@
-require 'sinatra'
-require 'erb'
+require 'padrino-core/application/rendering'
 require 'json'
 
-set :views,  'views'
-enable :static
+class Octodigest < Sinatra::Application
+  register Padrino::Rendering
 
-helpers do
-  require './lib/helpers'
-end
+  enable :static
+  views = './views'
+  templates[:layout] = File.read(File.join(settings.views, 'layout.erb'))
 
-get "/" do
-  erb :index
-end
-
-post "/" do
-  redirect ("#{h params[:user]}/#{h params[:repo]}")
-end
-
-get "/:user/:repo" do
-  @data = ghet("http://github.com/api/v2/json/repos/show/#{h params[:user]}/#{h params[:repo]}/contributors")
-  if @data.has_key? "error"
-    @title = "Not Found..."
-    erb :nf
-  else
-    @title = "#{h params[:user]}/#{h params[:repo]}"
-    erb :repo
+  helpers do
+    require './lib/helpers'
   end
-end
 
-get "/:user/:repo/:tag" do
-  tagger
-  if @tcommits.include? "error"
-    @title = "Not found..."
-    erb :nf
-  else
-    @title = "#{h params[:user]}/#{h params[:repo]} #{h params[:tag]}"
-    erb :tag
+  get "/" do
+    render :index
   end
-end
-not_found do
-  erb :nf
+
+  post "/" do
+    redirect("#{h params[:user]}/#{h params[:repo]}")
+  end
+
+  get "/:user/:repo" do
+    @data = ghet("http://github.com/api/v2/json/repos/show/#{h params[:user]}/#{h params[:repo]}/contributors")
+    if @data.has_key? "error"
+      @title = "Not Found..."
+      render :nf
+    else
+      @title = "#{h params[:user]}/#{h params[:repo]}"
+      render :repo
+    end
+  end
+
+  get "/:user/:repo/:tag" do
+    tagger
+    if @tcommits.include? "error"
+      @title = "Not found..."
+      render :nf
+    else
+      @title = "#{h params[:user]}/#{h params[:repo]} #{h params[:tag]}"
+      render :tag
+    end
+  end
+
+  not_found do
+    render :nf
+  end
+
 end
