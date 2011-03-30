@@ -1,9 +1,11 @@
 require 'sinatra'
+require 'padrino-core/application/rendering'
 require 'erb'
 require 'json'
 
 set :views,  'views'
 enable :static
+register Padrino::Rendering
 
 helpers do
   require './lib/helpers'
