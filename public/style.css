@@ -1,14 +1,14 @@
 a:link, a:visited, a:active {
   color: #FFF;
-  text-decoration: none; }
+text-decoration: none; }
 a:hover {
   color: #313736;
   text-decoration: none;
-  text-decoration: underline; }
+text-decoration: underline; }
 
 html {
   height: 100%;
-  -webkit-font-smoothing: antialiased; }
+-webkit-font-smoothing: antialiased; }
 
 body {
   margin: 0;
@@ -16,64 +16,135 @@ body {
   height: 100%;
   background-color: #424242;
   color: #e9e9e9;
-  font-family: "Merriweather", georgia, serif; }
+font-family: "Merriweather", georgia, serif; }
+
+.clear {clear:both} 
 
 #main {
   max-width: 728px;
   margin: 40px auto;
-  text-align: center; }
+text-align: center; }
 
 #title h1 {
   font-variant: small-caps;
   color: #ff9900;
   font-size: 28px;
   text-shadow: 0 0 1px #424242;
-  margin-bottom: 15px; }
+margin-bottom: 15px; }
 
 #text {
   display: block;
   line-height: 48px;
   font-size: 42px;
-  text-shadow: 0 0 1px #424242; }
+text-shadow: 0 0 1px #424242; }
 
 @font-face {
   font-family: "Merriweather";
   font-style: normal;
   font-weight: normal;
-  src: local("Merriweather"), url("http://themes.googleusercontent.com/font?kit=RFda8w1V0eDZheqfcyQ4EHhCUOGz7vYGh680lGh-uXM") format("woff"); }
+src: local("Merriweather"), url("http://themes.googleusercontent.com/font?kit=RFda8w1V0eDZheqfcyQ4EHhCUOGz7vYGh680lGh-uXM") format("woff"); }
 
 fieldset.search {
-	border: none;
-	width: 700px;
-	margin: 0 auto;
-	background: #424242;
+  border: none;
+  width: 700px;
+  margin: 0 auto;
+  background: #424242;
   display:inline
 }
 .search input , .search button {
-	border: none;
+  border: none;
 }
 
 .search input.box {
-	color: #fff;
-	font-size: 1.8em;
-	width: 300px;
-	height: 30px;
-	padding: 20px 5px 0;
-	background: #616161;
-	margin-right: 5px;
+  color: #fff;
+  font-size: 1.8em;
+  width: 300px;
+  height: 30px;
+  padding: 20px 5px 0;
+  background: #616161;
+  margin-right: 5px;
 }
 .search input.box:focus {
-	background: #616161 no-repeat left -38px;
-	outline: none;
+  background: #616161 no-repeat left -38px;
+  outline: none;
 }
 
 .search input.box:focus {
-	background: #616161 url(search_bg.gif) no-repeat left -38px;
-	outline: none;
+  background: #616161 url(search_bg.gif) no-repeat left -38px;
+  outline: none;
 }
 
 #footer {
-	color:#D2B97E;
-	font-size:14px;
-	text-align:center;
+  color:#D2B97E;
+  font-size:14px;
+  text-align:center;
+}
+
+/* remove the list style */
+#nav {
+  margin:0; 
+  padding:0; 
+  list-style:none;
+}   
+
+/* make the LI display inline */
+/* it's position relative so that position absolute */
+/* can be used in submenu */
+#nav li {
+  float:left; 
+  display:block; 
+  width:100px; 
+  background:#ccc; 
+  position:relative;
+  z-index:500; 
+  margin:0 1px;
+}
+
+/* this is the parent menu */
+#nav li a {
+  display:block; 
+  padding:8px 5px 0 5px; 
+  font-weight:700;  
+  height:23px; 
+  text-decoration:none; 
+  color:#fff; 
+  text-align:center; 
+  color:#333;
+}
+
+#nav li a:hover {
+  color:#fff;
+}
+
+/* you can make a different style for default selected value */
+#nav a.selected {
+  color:#f00;
+}
+
+/* submenu, it's hidden by default */
+#nav ul {
+  position:absolute; 
+  left:0; 
+  display:none; 
+  margin:0 0 0 -1px; 
+  padding:0; 
+  list-style:none;
+}
+
+#nav ul li {
+  width:300px; 
+  float:left; 
+  border-top:1px solid #fff;
+}
+
+/* display block will make the link fill the whole area of LI */
+#nav ul a {
+  display:block;  
+  height:15px;
+  padding: 8px 5px; 
+  color:#666;
+}
+
+#nav ul a:hover {
+  text-decoration:underline;  
 }
