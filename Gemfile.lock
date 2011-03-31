@@ -5,7 +5,6 @@ GEM
     http_router (0.5.4)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
-    i18n (0.5.0)
     padrino-core (0.9.23)
       activesupport (>= 3.0.0)
       http_router (~> 0.5.4)
@@ -26,6 +25,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  i18n
   padrino-core
   sinatra
