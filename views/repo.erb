@@ -1,5 +1,7 @@
 <% explode(@data) %>
 <% tags = ghet ("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags") %>
+<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> </a> </div>
+
 <hr>
 <ul id="nav">
   <li><a href="#">tags</a>
@@ -14,7 +16,6 @@
 </ul>
 
 <div class="clear"></div>
-<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> </a> </div>
 <div id="title"> <h1> Commits: <% count = 0; contributors.each {|u| count += u["contributions"]}%> <%=count%> / 
     Committers: <%= contributors.length %></h1></div>
 

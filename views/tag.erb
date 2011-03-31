@@ -1,5 +1,10 @@
 <% tagger %>
 <% tags = ghet ("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags") %>
+
+<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> ·
+    <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}/tree/#{params[:tag]}"%>">(<%="#{params[:tag]}"%>) </a> </div>
+
+
 <hr>
 
 <ul id="nav">
@@ -15,8 +20,6 @@
 </ul>
 <br><br>
 
-<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> <br>
-    <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}/tree/#{params[:tag]}"%>">(<%="#{params[:tag]}"%>) </a> </div>
 <div id="title"> <h1> Commits: <%= @tcommits["commits"].length %> / Committers: <%= @tmitts.length %></h1></div>
 
 <table align="center">
