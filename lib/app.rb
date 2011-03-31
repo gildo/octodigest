@@ -1,12 +1,16 @@
 require 'padrino-core/application/rendering'
 require 'json'
 
-class Octodigest < Sinatra::Base
+class Octodigest < Sinatra::Application
   register Padrino::Rendering
 
-  set :public, File.join(File.dirname(__FILE__), '..', 'public')
+  enable :static
   views = './views'
-  templates[:layout] = File.read(File.join(views, 'layout.erb'))
+  templates[:layout] = File.read(File.join(settings.views, 'layout.erb'))
+
+  helpers do
+    require './lib/helpers'
+  end
 
   get "/" do
     render :index
@@ -43,5 +47,3 @@ class Octodigest < Sinatra::Base
   end
 
 end
-
-require './lib/helpers'

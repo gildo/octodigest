@@ -1,9 +1,6 @@
 require 'net/http'
-
-class Octodigest; helpers do
-
-include Rack::Utils
-alias_method :h, :escape_html
+require 'json'
+require 'uri'
 
 def ghet u
   uri = URI.parse(u)
@@ -21,6 +18,11 @@ def explode hash
   end
 end
 
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end
+
 def tagger
   tags    = ghet ("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags")
   @tcommits = ghet ("http://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repo]}/#{params[:tag]}")
@@ -36,5 +38,3 @@ def tagger
     end
   end
 end
-
-end; end
