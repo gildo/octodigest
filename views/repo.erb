@@ -16,7 +16,7 @@
 </ul>
 
 <div class="clear"></div>
-<div id="title"> <h1> Commits: <% count = 0; contributors.each {|u| count += u["contributions"]}%> <%=count%> / 
+<div id="title"> <h1> Commits: <% count = 0; contributors.each {|u| count += u["contributions"]}%> <%=count%> /
     Committers: <%= contributors.length %></h1></div>
 
 <table align="center">
@@ -36,7 +36,7 @@
       <tr>
         <td>
           <a href="https://github.com/<%=h e["login"]%>/">
-            <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=h e["gravatar_id"] %>" width="40" height="40" />
+            <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=h e["gravatar_id"] %>?s=40" width="40" height="40" />
           </a>
         </td>
 
