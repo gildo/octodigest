@@ -1,6 +1,6 @@
 <% explode(@data) %>
-<% tags = ghet ("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags") %>
-<div id="text"> <a href="http://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> </a> </div>
+<% tags = ghet ("https://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags") %>
+<div id="text"> <a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> </a> </div>
 
 <hr>
 <ul id="nav">
@@ -35,14 +35,14 @@
 
       <tr>
         <td>
-          <a href="http://github.com/<%=h e["login"]%>/">
+          <a href="https://github.com/<%=h e["login"]%>/">
             <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=h e["gravatar_id"] %>" width="40" height="40" />
           </a>
         </td>
 
         <td>
 
-          <%=h e["name"] %> <a href="http://github.com/<%=h e["login"] %>/">(<%=h e["login"]%>)</a>
+          <%=h e["name"] %> <a href="https://github.com/<%=h e["login"] %>/">(<%=h e["login"]%>)</a>
 
         </td>
         <td><a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/commits/master?author=#{h e["login"]}"%>"><%=h e["contributions"] %></a></td>

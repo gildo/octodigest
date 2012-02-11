@@ -1,15 +1,16 @@
 require 'net/http'
+require 'net/https'
 require 'json'
 require 'uri'
 
 def ghet u
   uri = URI.parse(u)
   http = Net::HTTP.new(uri.host, uri.port)
-  request = Net::HTTP::Get.new(uri.request_uri)
+  http.use_ssl = true
 
-  response = http.request(request)
-  body = JSON.parse(response.body)
+  body = http.get(uri.path).body
 
+  JSON.parse(body)
 end
 
 def explode hash
@@ -24,8 +25,8 @@ helpers do
 end
 
 def tagger
-  tags    = ghet ("http://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags")
-  @tcommits = ghet ("http://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repo]}/#{params[:tag]}")
+  tags    = ghet ("https://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags")
+  @tcommits = ghet ("https://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repo]}/#{params[:tag]}")
 
   if @tcommits.include?"error"
     @title = "Not found..."
