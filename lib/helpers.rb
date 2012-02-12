@@ -16,26 +16,34 @@ helpers do
     JSON.parse(body)
   end
 
-  def explode (hash)
-    hash.each {|key, value|
-      define_singleton_method key do value end
+  def populate (hash)
+    hash.each {|name, value|
+      next if instance_variable_defined? "@#{name}"
+
+      instance_variable_set "@#{name}", value
     }
   end
 
   def tagger
-    @tcommits = fetch "https://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repo]}/#{params[:tag]}"
+    @tag = Struct.new(:commits, :commits_per_author).new
 
-    if @tcommits.include? 'error'
-      @title = 'Not found...'
+    @tag.commits = fetch "https://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repository]}/#{params[:tag]}"
 
-      erb :nf
-    else
-      @tmitts = @tcommits['commits'].map {|x|
-        [x['committer']['login'], x['id']]
-      }.group_by { |x| x[0] }.each {|key, value|
-        value.flatten.select { |x| x != key }
-      }
+    if @tag.commits.include? 'error'
+      return
     end
+
+    @tag.commits_per_author = @tag.commits['commits'].map {|x|
+      [x['committer']['login'], x['id']]
+    }.group_by { |(name, _)| name }.each {|key, value|
+      value.flatten.select { |x| x != key }
+    }
+  end
+
+  def fetch_tags
+    data = fetch "https://github.com/api/v2/json/repos/show/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/tags"
+
+    data['tags'].sort
   end
 
   alias h escape_html

@@ -121,8 +121,12 @@ fieldset.search {
     }
   }
 
+  &:hover li > ul {
+    display: block;
+  }
+
   /* submenu, it's hidden by default */
-  ul {
+  li > ul {
     position: absolute;
     left: 0;
     display: none;

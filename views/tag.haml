@@ -1,6 +1,12 @@
 #text
-  %a{ href: "https://github.com/#{params[:user]}/#{params[:repository]}" }
+  %a{ href: "https://github.com/#{params[:user]}/#{params[:repo]}" }
     = "#{params[:user]}/#{params[:repository]}"
+
+  -# there's a char here, really!
+  ·
+
+  %a{ href: "https://github.com/#{params[:user]}/#{params[:repo]}/tree/#{params[:tag]}" }
+    = "(#{params[:tag]})"
 
 %hr
 
@@ -31,10 +37,14 @@
       %th Contributions
 
   %tbody
-    - @contributors.each do |contributor|
+    - @tag.commits_per_author.sort_by { |_, x| x.length }.reverse_each do |name, commits|
+      - data = fetch("https://github.com/api/v2/json/user/show/#{name}")
+      - next if data.include? 'error'
+      - contributor = data['user']
+
       %tr
         %td
-          %a{ href: "https://github.com/#{contributor['login']}" }
+          %a{ href: "https://github.com/#{name}" }
             %img{ src: "http://www.gravatar.com/avatar.php?gravatar_id=#{contributor['gravatar_id']}?s=40" }
 
         %td
