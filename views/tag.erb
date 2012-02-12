@@ -1,5 +1,5 @@
 <% tagger %>
-<% tags = ghet ("https://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags") %>
+<% tags = fetch "https://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags" %>
 
 <div id="text"> <a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> ·
     <a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/tree/#{params[:tag]}"%>">(<%="#{params[:tag]}"%>) </a> </div>
@@ -20,7 +20,7 @@
 </ul>
 <br><br>
 
-<div id="title"> <h1> Commits: <%= @tcommits["commits"].length %> / Committers: <%= @tmitts.length %></h1></div>
+<div id="title"> <h1> Commits: <%= @commits["commits"].length %> / Committers: <%= @tmitts.length %></h1></div>
 
 <table align="center">
     <thead>
@@ -34,8 +34,8 @@
     </thead>
     <tbody>
 
-      <% @tmitts.sort_by { |k,v| v.length }.reverse_each do |u,c| %>
-      <% d = ghet "https://github.com/api/v2/json/user/show/#{u}" %>
+      <% @tmitts.sort_by { |_, x| x.length }.reverse_each do |u, c| %>
+      <% d = fetch "https://github.com/api/v2/json/user/show/#{u}" %>
 
         <tr>
           <td>

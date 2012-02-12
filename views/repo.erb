@@ -1,5 +1,5 @@
-<% explode(@data) %>
-<% tags = ghet ("https://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags") %>
+<% explode @data %>
+<% tags = fetch"https://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repo]}/tags" %>
 <div id="text"> <a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}"%>"><%="#{h params[:user]}/#{h params[:repo]}"%> </a> </div>
 
 <hr>
@@ -8,9 +8,8 @@
   <ul>
     <% tags["tags"].sort.reverse_each do |k,v| %>
       <li><a href=<%="/#{params[:user]}/#{params[:repo]}/#{k}"%>><%="#{k}"%></a></li>
-  <% end %>
+    <% end %>
   </ul>
-
 
   <div class="clear"></div>
 </ul>
@@ -25,14 +24,10 @@
       <th>Avatar</th>
       <th>Name</th>
       <th>Contributions</th>
-
-
     </tr>
   </thead>
   <tbody>
-
     <% contributors.each do |e| %>
-
       <tr>
         <td>
           <a href="https://github.com/<%=h e["login"]%>/">
@@ -41,11 +36,11 @@
         </td>
 
         <td>
-
           <%=h e["name"] %> <a href="https://github.com/<%=h e["login"] %>/">(<%=h e["login"]%>)</a>
-
         </td>
-        <td><a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/commits/master?author=#{h e["login"]}"%>"><%=h e["contributions"] %></a></td>
 
+        <td><a href="https://github.com/<%="#{h params[:user]}/#{h params[:repo]}/commits/master?author=#{h e["login"]}"%>"><%=h e["contributions"] %></a></td>
       </tr>
     <% end %>
+  </tbody>
+</table>
