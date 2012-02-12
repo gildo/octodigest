@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
-require 'erb'
+require 'haml'
+require 'sass'
 
 require 'lib/helpers'
 
@@ -9,41 +10,41 @@ enable :static
 views = 'views'
 
 get '/' do
-  erb :index
+  haml :index
 end
 
 post '/' do
-  redirect "#{h params[:user]}/#{h params[:repo]}"
+  redirect "#{h params[:user]}/#{h params[:repository]}"
 end
 
-get '/:user/:repo' do
-  @data = fetch "https://github.com/api/v2/json/repos/show/#{h params[:user]}/#{h params[:repo]}/contributors"
+get '/:user/:repository' do
+  @data = fetch "https://github.com/api/v2/json/repos/show/#{h params[:user]}/#{h params[:repository]}/contributors"
 
   if @data.has_key? 'error'
     @title = 'Not Found...'
 
-    erb :nf
+    haml :not_found
   else
-    @title = "#{h params[:user]}/#{h params[:repo]}"
+    @title = "#{h params[:user]}/#{h params[:repository]}"
 
-    erb :repo
+    haml :repository
   end
 end
 
-get '/:user/:repo/:tag' do
+get '/:user/:repository/:tag' do
   tagger
 
   if @tcommits.include? 'error'
     @title = 'Not found...'
 
-    erb :nf
+    haml :not_found
   else
-    @title = "#{h params[:user]}/#{h params[:repo]} #{h params[:tag]}"
+    @title = "#{h params[:user]}/#{h params[:repository]} #{h params[:tag]}"
 
-    erb :tag
+    haml :tag
   end
 end
 
 not_found do
-  erb :nf
+  haml :not_found
 end

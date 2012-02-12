@@ -1,0 +1,29 @@
+#title
+  %h1 it's a git... addicted!
+
+#text Online Github summary
+
+// theese brs suck
+%br
+( user / repo )
+%br
+%br
+
+%form#searchform{ method: 'post', action: ?/ }
+  %fieldset.search
+    %input.box{ type: 'text', name: 'user' }
+    \/
+    %input.box{ type: 'text', name: 'repo' }
+
+    %br
+    %br
+
+    %button.minimal{ title: 'Summarize' }
+      Summarize
+
+%br
+%br
+
+:plain
+  <a href="https://github.com/gildo/octodigest"><img src="/octojedi.png" /></a>
+  <em>Use the <a href="https://github.com/gildo/octodigest">source</a>, Luke</em>

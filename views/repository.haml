@@ -1,0 +1,48 @@
+- explode @data
+- tags = fetch "https://github.com/api/v2/json/repos/show/#{params[:user]}/#{params[:repository]}/tags"
+
+#text
+  %a{ href: h "https://github.com/#{params[:user]}/#{params[:repository]}" }
+    = h "#{params[:user]}/#{params[:repository]}"
+
+%hr
+
+%ul#nav
+  %li
+    %a{ href: '#' } tags
+
+  %li
+    %ul
+      - tags['tags'].sort.reverse_each do |name, value|
+        %li
+          %a{ href: h "/#{params[:user]}/#{params[:repository]}/#{name}" }= h name
+
+  .clear
+
+.clear
+
+#title
+  %h1
+    = h "Commits: #{contributors.reduce(0) { |r, c| r + c['contributions'] }}"
+    = h "Committers: #{contributors.length}"
+
+%table{ align: 'center' }
+  %thead
+    %tr
+      %th Avatar
+      %th Name
+      %th Contributions
+
+  %tbody
+    - contributors.each do |contributor|
+      %tr
+        %td
+          %a{ href: "https://github.com/#{h contributor['login']}" }
+            %img{ src: "http://www.gravatar.com/avatar.php?gravatar_id=#{contributor['gravatar_id']}?s=40" }
+
+        %td
+          = h contributor['name']
+          %a{ href: "https://github.com/#{h contributor['login']}" }= h "(#{contributor['login']})"
+
+        %td
+          %a{ href: "https://github.com/#{h params[:user]}/#{h params[:repository]}/commits/master?author=#{h contributor['login']}" }= h contributor['contributions']
