@@ -26,8 +26,8 @@
 
 #title
   %h1
-    = "Commits: #{@contributors.reduce(0) { |r, c| r + c['contributions'] }}"
-    = "Committers: #{@contributors.length}"
+    = "Commits: #{@tag.commits["commits"].length}"
+    = "Committers: #{@tag.commits_per_author.length}"
 
 %table{ align: 'center' }
   %thead
@@ -52,4 +52,4 @@
           %a{ href: "https://github.com/#{contributor['login']}" }= "(#{contributor['login']})"
 
         %td
-          %a{ href: "https://github.com/#{params[:user]}/#{params[:repository]}/commits/master?author=#{contributor['login']}" }= contributor['contributions']
+          %a{ href: "https://github.com/#{params[:user]}/#{params[:repository]}/commits/master?author=#{contributor['login']}" }= commits.length

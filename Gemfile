@@ -2,6 +2,6 @@ source 'http://rubygems.org'
 
 gem 'sinatra'
 
-gem 'haml'
+gem 'mustache'
 gem 'json'
 gem 'sass'
