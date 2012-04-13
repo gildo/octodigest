@@ -1,13 +1,11 @@
-require 'sinatra'
-require 'json'
-require 'haml'
-require 'sass'
-
-require 'lib/helpers'
-
 enable :static
 
-views = 'views'
+set :app_file, __FILE__
+
+dir = File.dirname(__FILE__)
+set :public_folder, "#{dir}/public"
+
+
 
 get '/' do
   haml :index

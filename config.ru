@@ -1,6 +1,6 @@
 require 'sinatra'
 
-unless $:.unshift(File.dirname(__FILE__)) and require 'lib/app'
+unless $LOAD_PATH.unshift(File.expand_path("../lib", __FILE__)) and require 'octodigest'
 	fail 'could not require needed files'
 end
 
