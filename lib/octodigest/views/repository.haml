@@ -10,9 +10,9 @@
 
   %li
     %ul
-      - @tags.reverse_each do |name, value|
+      - @tags.reverse_each do |tag|
         %li
-          %a{ href: "/#{params[:user]}/#{params[:repository]}/#{name}" }= name
+          %a{ href: "/#{params[:user]}/#{params[:repository]}/#{tag}" }= tag
 
   .clear
 
@@ -20,25 +20,25 @@
 
 #title
   %h1
-    = "Commits: #{@contributors.reduce(0) { |r, c| r + c['contributions'] }}"
-    = "Committers: #{@contributors.length}"
+    -  count = 0; @data.each {|u| count += u["contributions"]}
+    = "Commits: #{count}"
+    = "Committers: #{@data.length}"
 
 %table{ align: 'center' }
   %thead
     %tr
       %th Avatar
-      %th Name
+      %th User
       %th Contributions
 
   %tbody
-    - @contributors.each do |contributor|
+    - @data.each do |contributor|
       %tr
         %td
           %a{ href: "https://github.com/#{contributor['login']}" }
             %img{ src: "http://www.gravatar.com/avatar.php?gravatar_id=#{contributor['gravatar_id']}?s=40" }
 
         %td
-          = contributor['name']
           %a{ href: "https://github.com/#{contributor['login']}" }= "(#{contributor['login']})"
 
         %td

@@ -1,7 +1,6 @@
 require 'net/http'
 require 'net/https'
 require 'json'
-require 'uri'
 
 helpers do
   include Rack::Utils
@@ -27,13 +26,13 @@ helpers do
   def tagger
     @tag = Struct.new(:commits, :commits_per_author).new
 
-    @tag.commits = fetch "https://github.com/api/v2/json/commits/list/#{params[:user]}/#{params[:repository]}/#{params[:tag]}"
+    @tag.commits = fetch "https://api.github.com/repos/#{params[:user]}/#{params[:repository]}/commits?sha=#{params[:tag]}"
 
     if @tag.commits.include? 'error'
       return
     end
 
-    @tag.commits_per_author = @tag.commits['commits'].map {|x|
+    @tag.commits_per_author = @tag.commits.map {|x|
       [x['committer']['login'], x['id']]
     }.group_by { |(name, _)| name }.each {|key, value|
       value.flatten.select { |x| x != key }
@@ -41,9 +40,12 @@ helpers do
   end
 
   def fetch_tags
-    data = fetch "https://github.com/api/v2/json/repos/show/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/tags"
+    tags_name = []
+    
+    data = fetch "https://api.github.com/repos/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/tags"
+    data.each {|tag| tags_name << tag["name"]}
+    tags_name.sort!
 
-    data['tags'].sort
   end
 
   alias h escape_html

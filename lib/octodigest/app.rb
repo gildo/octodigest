@@ -16,15 +16,13 @@ post '/' do
 end
 
 get '/:user/:repository' do
-  data = fetch "https://github.com/api/v2/json/repos/show/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/contributors"
+  @data = fetch "https://api.github.com/repos/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/contributors"
 
-  if data.has_key? 'error'
+  if @data[0].has_key? 'error'
     @title = 'Not Found...'
 
     haml :not_found
   else
-    populate data
-
     @title = "#{params[:user]}/#{params[:repository]}"
     @tags  = fetch_tags
 
@@ -35,14 +33,14 @@ end
 get '/:user/:repository/:tag' do
   tagger
 
-  data = fetch "https://github.com/api/v2/json/repos/show/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/contributors"
+  data = fetch "https://api.github.com/repos/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/contributors"
 
-  if data.has_key? 'error' or @tag.commits.include? 'error'
+  if data[0].has_key? 'error' or @tag.commits.include? 'error'
     @title = 'Not found...'
 
     haml :not_found
   else
-    populate data
+    #populate data
 
     @title = "#{params[:user]}/#{params[:repository]} #{params[:tag]}"
     @tags  = fetch_tags

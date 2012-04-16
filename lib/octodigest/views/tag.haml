@@ -16,9 +16,9 @@
 
   %li
     %ul
-      - @tags.reverse_each do |name, value|
+      - @tags.reverse_each do |tag|
         %li
-          %a{ href: "/#{params[:user]}/#{params[:repository]}/#{name}" }= name
+          %a{ href: "/#{params[:user]}/#{params[:repository]}/#{tag}" }= tag
 
   .clear
 
@@ -26,7 +26,7 @@
 
 #title
   %h1
-    = "Commits: #{@tag.commits["commits"].length}"
+    = "Commits: #{@tag.commits.length}"
     = "Committers: #{@tag.commits_per_author.length}"
 
 %table{ align: 'center' }
