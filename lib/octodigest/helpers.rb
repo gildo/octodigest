@@ -10,7 +10,7 @@ helpers do
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
 
-    body = http.get(uri.path).body
+    body = http.get(uri.to_s).body
 
     JSON.parse(body)
   end
@@ -26,26 +26,24 @@ helpers do
   def tagger
     @tag = Struct.new(:commits, :commits_per_author).new
 
-    @tag.commits = fetch "https://api.github.com/repos/#{params[:user]}/#{params[:repository]}/commits?sha=#{params[:tag]}"
-
+    @tag.commits = fetch "https://api.github.com/repos/#{params[:user]}/#{params[:repository]}/commits?sha=#{params[:tag]}&per_page=50"
     if @tag.commits.include? 'error'
       return
     end
 
-    @tag.commits_per_author = @tag.commits.map {|x|
-      [x['committer']['login'], x['id']]
+    @tag.commits_per_author = Hash[@tag.commits].map {|x|
+      [x['author']['login'], x['author']['id']]
     }.group_by { |(name, _)| name }.each {|key, value|
       value.flatten.select { |x| x != key }
     }
   end
 
-  def fetch_tags
-    tags_name = []
-    
+  def fetch_tags    
     data = fetch "https://api.github.com/repos/#{URI.escape params[:user]}/#{URI.escape params[:repository]}/tags"
-    data.each {|tag| tags_name << tag["name"]}
-    tags_name.sort!
-
+    
+    # let's get also
+    tags = data.map { |x| [x["name"], x["commit"]["sha"]] }
+    Hash[tags.sort!]
   end
 
   alias h escape_html

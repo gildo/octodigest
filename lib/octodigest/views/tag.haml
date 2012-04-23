@@ -18,7 +18,7 @@
     %ul
       - @tags.reverse_each do |tag|
         %li
-          %a{ href: "/#{params[:user]}/#{params[:repository]}/#{tag}" }= tag
+          %a{ href: "/#{params[:user]}/#{params[:repository]}/#{tag.first}" }= tag.first
 
   .clear
 
