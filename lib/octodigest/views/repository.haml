@@ -20,7 +20,7 @@
 
 #title
   %h1
-    = "Commits: #{@contributors.reduce(0) { |r, c| r + c['contributions'] }}"
+    = "Commits: #{@contributors.reduce(0) { |r, c| r + c['contributions'] }} ϟ"
     = "Committers: #{@contributors.length}"
 
 %table{ align: 'center' }
