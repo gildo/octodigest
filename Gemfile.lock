@@ -2,7 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     haml (3.1.4)
-    json (1.6.5)
+    json (1.6.8)
     rack (1.6.12)
     sass (3.1.15)
     sinatra (1.2.1)
